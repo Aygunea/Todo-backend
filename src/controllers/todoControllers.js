@@ -4,9 +4,6 @@ import Todo from '../model/TodoModel.js'
 export const getAllTodos = async (request, response) => {
     try {
         const todos = await Todo.find({});
-        if (todos.length === 0) {
-            return response.status(404).json({ message: "No todos found" });
-        }
         response.status(200).json(todos);
     } catch (error) {
         response.status(500).json({ message: error.message });
@@ -32,21 +29,6 @@ export const getSingleTodo = async (request, response) => {
     }
 }
 
-// export const createTodo = async (request, response) => {
-//     try {
-//         const { title } = request.body
-//         if (!title) {
-//             return response.status(400).send({ message: "Title is required" })
-//         }
-//         const newTodo = await Todo.create({ title })
-//         console.log(newTodo);
-//         response.status(201).send(newTodo)
-//     } catch (error) {
-//         response.status(500).send({
-//             message: error.message
-//         })
-//     }
-// }
 export const createTodo = async (request, response) => {
     try {
         const { title } = request.body
@@ -58,8 +40,6 @@ export const createTodo = async (request, response) => {
                 response.status(201).send(data)
             }
         )
-        // console.log(newTodo);
-        // response.status(201).send(newTodo)
     } catch (error) {
         response.status(500).send({
             message: error.message
@@ -84,6 +64,7 @@ export const deleteTodo = async (request, response) => {
         })
     }
 }
+
 export const updateTodo = async (request, response) => {
     try {
         const { id } = request.params
